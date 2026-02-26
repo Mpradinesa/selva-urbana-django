@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse | Selva Urbana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f1f8f1; }
+        .card-registro { border: none; border-radius: 15px; }
+        .btn-success { background-color: #2d5a27; border: none; }
+        .btn-success:hover { background-color: #1e3d1a; }
+        .text-success-dark { color: #2d5a27; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-success-dark">🌿 Únete a Selva Urbana</h2>
+                <p class="text-muted">Crea tu cuenta para empezar a comprar tus plantas favoritas.</p>
+            </div>
+            
+            <div class="card shadow-sm card-registro">
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <div class="form-text small" style="font-size: 0.75rem;">{{ field.help_text }}</div>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-success btn-lg">Registrarme</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="text-success fw-bold">Inicia sesión aquí</a></p>
+                <a href="{% url 'home' %}" class="text-muted small">← Volver a la tienda</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

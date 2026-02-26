@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selva Urbana | Tienda de Plantas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --verde-selva: #2d5a27; --verde-claro: #f1f8f1; }
+        body { background-color: var(--verde-claro); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .navbar { background-color: var(--verde-selva) !important; shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card-plant { border: none; border-radius: 15px; transition: 0.3s; overflow: hidden; }
+        .card-plant:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .img-container { height: 250px; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-success { background-color: var(--verde-selva); border: none; }
+        .btn-success:hover { background-color: #1e3d1a; }
+        .badge-care { position: absolute; top: 10px; right: 10px; background-color: rgba(255,255,255,0.9); color: var(--verde-selva); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark mb-5">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}"> SELVA URBANA</a>
+        <div class="d-flex align-items-center">
+            <a href="{% url 'cart_detail' %}" class="btn btn-outline-light me-3">🛒 Carrito</a>
+            {% if user.is_authenticated %}
+                <span class="text-white me-2 small">Hola, {{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="btn btn-sm btn-light">Salir</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-sm btn-outline-light me-2">Entrar</a>
+                <a href="{% url 'registro' %}" class="btn btn-sm btn-light">Registrarse</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color: var(--verde-selva);">Nuestra Colección</h1>
+        <p class="lead text-muted">Dale vida a tu espacio con nuestras plantas seleccionadas.</p>
+    </header>
+
+    <div class="row">
+        {% for planta in plantas %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 card-plant">
+                <span class="badge badge-care shadow-sm">{{ planta.nivel_cuidado }}</span>
+                
+                <div class="img-container">
+                    {% if planta.imagen %}
+                        <img src="{{ planta.imagen.url }}" alt="{{ planta.nombre }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=500" alt="Planta por defecto">
+                    {% endif %}
+                </div>
+
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-2">
+                        <small class="text-uppercase text-muted fw-bold">{{ planta.categoria.nombre }}</small>
+                        <h5 class="card-title mb-1 fw-bold">{{ planta.nombre }}</h5>
+                        <p class="text-muted small mb-2">Ideal para: <strong>{{ planta.ambiente }}</strong></p>
+                    </div>
+                    <p class="card-text text-secondary small">{{ planta.descripcion|truncatechars:80 }}</p>
+                    <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                        <span class="h4 mb-0 fw-bold text-success">${{ planta.precio }}</span>
+                        <a href="{% url 'add_to_cart' planta.id %}" class="btn btn-success">
+                            + Agregar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h3>¡Oh no! Aún no tenemos plantas en stock.</h3>
+            <p>Entra al administrador para sembrar los primeros productos.</p>
+            <a href="/admin" class="btn btn-outline-success">Ir al Panel Admin</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer class="bg-white py-4 mt-5 border-top">
+    <div class="container text-center">
+        <p class="text-muted mb-0">&copy; 2024 Selva Urbana - Proyecto Final Full Stack Trainee</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
