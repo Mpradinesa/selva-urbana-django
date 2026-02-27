@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #  Proyecto: Selva Urbana - Tienda de Plantas
 
 Bienvenido a mi proyecto final para el Módulo 8.
@@ -53,8 +52,5 @@ Para evaluar las funciones de la tienda, use las siguientes cuentas:
 
 Se puede ver: Solo en esa computadora entrando a http://127.0.0.1:8000/
 
-Luego entrar a http://127.0.0.1:8000/admin para ver el modulo de administracion
-=======
-# selva-urbana-django
+Luego entrar a http://127.0.0.1:8000/admin para ver el modulo de administracion# selva-urbana-django
 E-commerce modulo 8 proyecto final
->>>>>>> fdf8ceff3f6513e06273498bbf9023fc4d68e007
