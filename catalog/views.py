@@ -6,13 +6,23 @@ from .cart import Cart
 from .forms import RegistroForm
 from django.contrib import messages
 
-# --- VISTAS DE CATÁLOGO ---
+
 
 def home(request):
     plantas = Producto.objects.all()
-    return render(request, 'catalog/home.html', {'plantas': plantas})
+    
+  
+    cart = request.session.get('cart', {})
 
-# --- LÓGICA DEL CARRITO ---
+    total_items = sum(item.get('cantidad', 0) for item in cart.values())
+   
+
+    return render(request, 'catalog/home.html', {
+        'plantas': plantas,
+        'cart_total_quantity': total_items  # Esto activa el número en el HTML
+    })
+
+
 
 @login_required(login_url='login')
 def add_to_cart(request, producto_id):
@@ -22,7 +32,7 @@ def add_to_cart(request, producto_id):
     id_producto = str(producto.id)
     cantidad_en_carrito = cart.cart.get(id_producto, {}).get('cantidad', 0)
 
-    # Validación de stock inicial
+    
     if cantidad_en_carrito + 1 > producto.stock:
         messages.error(request, f"Lo sentimos, la cantidad supera el stock disponible ({producto.stock} unidades).")
         return redirect('home')
@@ -66,7 +76,6 @@ def clear_cart(request):
     messages.info(request, "Carrito vaciado.")
     return redirect('cart_detail')
 
-# --- AUTENTICACIÓN DE USUARIOS ---
 
 def registro_usuario(request):
     if request.method == "POST":
@@ -85,7 +94,6 @@ def cerrar_sesion(request):
     messages.info(request, "Sesión cerrada.")
     return redirect("home")
 
-# --- FINALIZAR COMPRA (CHECKOUT) ---
 
 @login_required
 def checkout(request):
@@ -94,21 +102,20 @@ def checkout(request):
         messages.warning(request, "Tu carrito está vacío.")
         return redirect('home')
         
-    # 1. Crear el Pedido en la base de datos
     pedido = Pedido.objects.create(
         usuario=request.user,
         total=cart.get_total_price()
     )
     
-    # 2. Procesar productos y descontar stock (Corregido: una sola vez)
+    
     for item in cart.cart.values():
         producto = Producto.objects.get(id=item['producto_id'])
         
-        # Restar stock real
+        
         producto.stock -= int(item['cantidad'])
         producto.save()
         
-        # Crear detalle del pedido
+        
         DetallePedido.objects.create(
             pedido=pedido,
             producto=producto,
@@ -116,7 +123,7 @@ def checkout(request):
             precio=item['precio']
         )
     
-    # 3. Vaciar carrito y mostrar éxito
+
     cart.clear()
     messages.success(request, "¡Tu compra se ha realizado con éxito!")
     return redirect('success_page', pedido_id=pedido.id)
