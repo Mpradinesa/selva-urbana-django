@@ -9,7 +9,7 @@ Bienvenido a mi proyecto final para el Módulo 8.
 Primero, debe clonar mi código desde GitHub abriendo una terminal y escribiendo:
 
 ```bash
-git clone [https://github.com/Mpradinesa/selva-urbana-django.git](https://github.com/Mpradinesa/selva-urbana-django.git)
+git clone [https://github.com/Mpradinesa/selva-urbana-django.git](https://github.com/Mpradinesa/selva-urbana-django.git)(https://github.com/Mpradinesa/selva-urbana-django.git)
 cd selva-urbana-django
 ```
 

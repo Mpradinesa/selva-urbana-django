@@ -35,6 +35,6 @@ class Cart:
         self.session['cart'] = {}
         self.save()
         
-        # Añade esto dentro de la clase Cart
+        
     def get_total_price(self):
         return sum(float(item['precio']) * item['cantidad'] for item in self.cart.values())
