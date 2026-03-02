@@ -17,5 +17,6 @@ urlpatterns = [
     path('carrito/sumar/<int:producto_id>/', views.add_unit, name='add_unit'),
     path('carrito/restar/<int:producto_id>/', views.remove_unit, name='remove_unit'),
     path('exito/<int:pedido_id>/', views.success_page, name='success_page'), # Para el mensaje de éxito
+    path('contacto/', views.contacto_view, name='contacto'),
 
 ]

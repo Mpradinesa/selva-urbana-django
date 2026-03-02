@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selva Urbana | Tienda de Plantas</title>
+    <title>🌿Selva Urbana | Tienda de Plantas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root { --verde-selva: #2d5a27; --verde-claro: #f1f8f1; }
@@ -11,7 +11,6 @@
         body { 
             background-color: var(--verde-claro); 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            /* Espacio para que el navbar fijo no tape el contenido */
             padding-top: 100px; 
         }
 
@@ -47,8 +46,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'home' %}"> SELVA URBANA</a>
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">🌿 SELVA URBANA</a>
         <div class="d-flex align-items-center">
+
+            <a href="{% url 'contacto' %}" class="btn btn-outline-light me-3">
+                📩 Contactar
+            </a>
             
             <a href="{% url 'cart_detail' %}" class="btn btn-outline-light me-3 position-relative">
                 🛒 Carrito
@@ -91,6 +94,44 @@
         <h1 class="display-4 fw-bold" style="color: var(--verde-selva);">Nuestra Colección</h1>
         <p class="lead text-muted">Dale vida a tu espacio con nuestras plantas seleccionadas.</p>
     </header>
+
+    <div class="container mb-4">
+    <form method="GET" class="card p-3 shadow-sm border-0" style="border-radius: 15px; background-color: white;">
+        <div class="row g-3 align-items-end">
+            
+            <div class="col-md-4">
+                <label class="form-label small fw-bold text-muted">FILTRAR POR TIPO</label>
+                <select name="categoria" class="form-select border-0" style="background-color: #f1f8f1;">
+                    <option value="">Todas las plantas</option>
+                    {% for cat in categorias %}
+                        <option value="{{ cat.id }}" {% if categoria_actual == cat.id|stringformat:"s" %}selected{% endif %}>
+                            {{ cat.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label small fw-bold text-muted">ORDENAR PRECIO</label>
+                <select name="orden" class="form-select border-0" style="background-color: #f1f8f1;">
+                    <option value="">Por defecto</option>
+                    <option value="barato" {% if orden_actual == 'barato' %}selected{% endif %}>Más baratos primero</option>
+                    <option value="caro" {% if orden_actual == 'caro' %}selected{% endif %}>Más caros primero</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-success w-100 fw-bold" style="background-color: #2d5a27; border: none; height: 38px;">
+                    APLICAR FILTROS
+                </button>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary w-100">
+                    LIMPIAR
+                </a>
+            </div>
+
+        </div>
+    </form>
+</div>
 
     <div class="row">
         {% for planta in plantas %}
@@ -144,7 +185,7 @@
 
 <footer class="bg-white py-4 mt-5 border-top">
     <div class="container text-center">
-        <p class="text-muted mb-0">&copy; 2024 Selva Urbana - Proyecto Final Portafolio</p>
+        <p class="text-muted mb-0">&copy; 2026 🌿 Selva Urbana - Proyecto Final Portafolio</p>
     </div>
 </footer>
 
