@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'selva_urbana.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"postgres://postgres:tu_password_local@127.0.0.1:5432/portafolio_modulo8",
+        default=f"postgres://postgres:admin123@127.0.0.1:5432/portafolio_modulo8",
         conn_max_age=600
     )
 }
