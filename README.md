@@ -46,9 +46,7 @@ Para evaluar las funciones de la tienda, use las siguientes cuentas:
 * **Administrador:**
     * Usuario: `administrador`
     * Contraseña: `dasko123`
-* **Cliente:**
-    * Usuario: `Claudia`
-    * Contraseña: `caser123`
+
 
 Se puede ver: Solo en esa computadora entrando a http://127.0.0.1:8000/
 
