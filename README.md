@@ -1,54 +1,52 @@
-#  Proyecto: Selva Urbana - Tienda de Plantas
+# 🌿 Selva Urbana - E-commerce de Plantas & Decoración
 
-Bienvenido a mi proyecto final para el Módulo 8.
- Es una tienda online funcional donde podrá encontrar un catálogo de plantas,  un carrito de compras y el control del inventario.
+**Selva Urbana** es una plataforma web profesional desarrollada con **Django**, diseñada para la comercialización de plantas de interior y accesorios de decoración. El proyecto destaca por su enfoque "Mobile First", un diseño limpio y una experiencia de usuario fluida.
 
+---
 
+## 🚀 Funcionalidades Principales
 
-### 1. Descargar el proyecto
-Primero, debe clonar mi código desde GitHub abriendo una terminal y escribiendo:
+* **Catálogo Dinámico:** Filtrado por categorías y ordenamiento por precio.
+* **Gestión de Stock:** Visualización de productos agotados y etiquetas de nivel de cuidado.
+* **Carrito de Compras:** Sistema persistente basado en sesiones para gestionar pedidos.
+* **Integración con WhatsApp:** Botón de consulta directa que envía automáticamente el nombre del producto interesado.
+* **Panel Administrativo Premium:** Gestión completa de inventario mediante una interfaz moderna (Jazzmin).
+* **Galería Interactiva:** Visualización detallada de productos con cambio de imágenes dinámico.
 
-```bash
-git clone [https://github.com/Mpradinesa/selva-urbana-django.git](https://github.com/Mpradinesa/selva-urbana-django.git)(https://github.com/Mpradinesa/selva-urbana-django.git)
-cd selva-urbana-django
-```
+---
 
-### 2. Preparar el entorno
+## 📸 Capturas de Pantalla
 
-Para crear entorno de trabajo colocar en terminal los siguientes comandos en este orden :
+### 🏠 Home (Catálogo)
+Interfaz principal con diseño de tarjetas, insignias de stock y filtros rápidos.
+![Home de Selva Urbana](./media/productos/web_portada.JPG)
 
-* python -m venv venv
-* .\venv\Scripts\activate
+### 🔍 Detalle del Producto
+Vista enfocada en el producto con galería de imágenes y botones de acción claros.
+![Detalle de Producto](./media/productos/detalle_producto.JPG)
 
-Instalar Django :
+### 📲 Conexión por WhatsApp
+Integración directa para cerrar ventas de forma personalizada.
+![Contacto por WhatsApp](./media/productos/mensaje_whatsApp.JPG)
 
-* pip install -r requirements.txt
+### ⚙️ Panel de Administración (Django Jazzmin)
+Backend optimizado para una gestión ágil del catálogo y usuarios.
+![Panel Jazzmin](./media/productos/panel_control.JPG)
 
-Preparar la base de datos:
+---
 
-* python manage.py migrate
+## 🛠️ Tecnologías Utilizadas
 
-Poner a andar el servido local:
+* **Backend:** Python 3.x & Django 5.x
+* **Base de Datos:** PostgreSQL
+* **Frontend:** HTML5, CSS3 (Custom Properties), Bootstrap 5 & FontAwesome
+* **Panel Admin:** Django Jazzmin
+* **Despliegue sugerido:** Render / GitHub
 
-* python manage.py runserver
+---
 
-Para administrar la tienda :
+## 🔧 Instalación Local
 
-* python manage.py createsuperuser   y seguir las instrucciones de terminal
-
-Si hace algun cambio en el codigo despues de guardar los cambios usar los siguiente comandos:
-
-* python manage.py makemigrations
-* python manage.py migrate
-
-Para evaluar las funciones de la tienda, use las siguientes cuentas:
-
-* **Administrador:**
-    * Usuario: `administrador`
-    * Contraseña: `dasko123`
-
-
-Se puede ver: Solo en esa computadora entrando a http://127.0.0.1:8000/
-
-Luego entrar a http://127.0.0.1:8000/admin para ver el modulo de administracion# selva-urbana-django
-E-commerce modulo 8 proyecto final
+1. Clona el repositorio:
+   ```bash
+   git clone [https://github.com/tu-usuario/selva-urbana.git](https://github.com/tu-usuario/selva-urbana.git)

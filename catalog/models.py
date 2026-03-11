@@ -23,6 +23,13 @@ class Producto(models.Model):
     
     def __str__(self):
         return self.nombre
+    
+class ProductoImagen(models.Model):
+    producto = models.ForeignKey(Producto, related_name='imagenes_extra', on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='productos/galeria/')
+
+    def __str__(self):
+        return f"Imagen de {self.producto.nombre}"    
 
 class Pedido(models.Model):  
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -56,4 +63,23 @@ class Contacto(models.Model):
     fecha_envio = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Mensaje de {self.nombre}"    
+        return f"Mensaje de {self.nombre}"  
+    
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=100)
+    correo = models.EmailField()
+    # Agregamos asunto si lo quieres capturar
+    asunto = models.CharField(max_length=200, default="Consulta General") 
+    mensaje = models.TextField()
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Mensaje de {self.nombre}"      
+    
+class ProductoImagen(models.Model):
+    # Relaciona la foto con un producto específico
+    producto = models.ForeignKey(Producto, related_name='imagenes_extra', on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='productos/galeria/')
+
+    def __str__(self):
+        return f"Imagen extra de {self.producto.nombre}"    

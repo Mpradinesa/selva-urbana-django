@@ -5,6 +5,7 @@ from .models import Producto, Pedido, DetallePedido, Categoria, Contacto # Unifi
 from .cart import Cart
 from .forms import RegistroForm, ContactoForm # Unifiqué los imports de formularios
 from django.contrib import messages
+from .forms import RegistroForm, ContactoForm, ResenaForm
 
 def home(request):
     # 1. Traemos TODOS los productos inicialmente
@@ -147,3 +148,47 @@ def contacto_view(request):
     else:
         form = ContactoForm()
     return render(request, 'catalog/contacto.html', {'form': form})
+
+def producto_detail(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    resenas = producto.resenas.all().order_by('-fecha_creacion')
+    
+    if request.method == 'POST':
+        form = ResenaForm(request.POST)
+        if form.is_valid():
+            nueva_resena = form.save(commit=False)
+            nueva_resena.producto = producto
+            nueva_resena.usuario = request.user  # Solo usuarios logueados pueden comentar
+            nueva_resena.save()
+            messages.success(request, '¡Gracias por tu reseña!')
+            return redirect('producto_detail', producto_id=producto.id)
+    else:
+        form = ResenaForm()
+
+    return render(request, 'catalog/detalle.html', {
+        'producto': producto,
+        'resenas': resenas,
+        'form': form
+    })
+    
+def producto_detail(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    resenas = producto.resenas.all().order_by('-fecha_creacion')
+    
+    if request.method == 'POST':
+        form = ResenaForm(request.POST)
+        if form.is_valid():
+            nueva_resena = form.save(commit=False)
+            nueva_resena.producto = producto
+            nueva_resena.usuario = request.user
+            nueva_resena.save()
+            messages.success(request, '¡Gracias por tu reseña!')
+            return redirect('producto_detail', producto_id=producto.id)
+    else:
+        form = ResenaForm()
+
+    return render(request, 'catalog/detalle.html', {
+        'producto': producto,
+        'resenas': resenas,
+        'form': form
+    })    

@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,9 +80,14 @@ WSGI_APPLICATION = 'selva_urbana.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'postgres://postgres:admin123@127.0.0.1:5432/portafolio_modulo8')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'portafolio_modulo8',
+        'USER': 'postgres',
+        'PASSWORD': 'admin123',
+        'HOST': '127.0.0.1',  # <--- Deja este
+        'PORT': '5432',
+    }
 }
 
 
@@ -128,3 +134,33 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Selva Urbana Admin",
+    "site_header": "Selva Urbana",
+    "site_brand": "Administración Selva Urbana",
+    "welcome_sign": "Bienvenida al panel de control de Selva Urbana, Monica",
+    "copyright": "Selva Urbana Ltd",
+    "search_model": ["auth.User", "catalog.Producto"],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "order_with_respect_to": ["catalog", "auth"],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "catalog.Producto": "fas fa-leaf",
+    },
+    # --- Estos van fuera de icons, pero dentro de JAZZMIN_SETTINGS ---
+    "show_ui_builder": False, 
+    "topmenu_links": [
+        # Este añade el enlace con un icono de casita
+        {"name": "Inicio", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Ver Sitio Web", "url": "/", "icon": "fas fa-home", "permissions": ["auth.view_user"]},
+    ],
+}
+
+# Esto cambia el color a un verde que combine con tu web
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",
+    "dark_mode_theme": "darkly",
+}
